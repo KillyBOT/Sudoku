@@ -9,6 +9,7 @@ class SudokuGame(object):
 	def __init__(self,size):
 		self.size = size
 		self.board = self.create_board()
+		self.solution = []
 #The board will be like: 
 #[
 #[box,box,box],
@@ -44,6 +45,7 @@ class SudokuGame(object):
 		return finalBoard
 
 	def create_solution(self):
+
 		possibleMoves = []
 		for boxRow in range(self.size):
 			for boxColumn in range(self.size):
@@ -72,6 +74,7 @@ class SudokuGame(object):
 			except StopIteration:
 				self.board = self.create_board()
 				pass
+		return copy.deepcopy(self.board)
 
 	def create_final_board(self):
 		occupiedPositions = []
@@ -101,7 +104,6 @@ class SudokuGame(object):
 			self.board[boardRow][boardColumn][boxRow][boxColumn] = num
 			return True
 		else:
-			print("Cannot play there!")
 			return False
 
 			

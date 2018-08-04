@@ -131,6 +131,10 @@ class SudokuGUI(object):
 				if event.key == pygame.K_9:
 					self.game.play(self.selectedY, self.selectedX, 9)
 
+			if self.game.board == self.game.solution:
+				print("You win!")
+				self.running = False
+
 	def run(self):
 
 		self.running = True
