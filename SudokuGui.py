@@ -25,8 +25,8 @@ class SudokuGUI(object):
 		self.squareSize = 40
 		self.boxSize = ((self.squareSize)*self.game.size)+self.padding*(self.game.size+1)
 
-		self.width = 640
-		self.height = 480
+		self.width = self.boxSize*self.game.size + 200
+		self.height = self.boxSize*self.game.size + 50
 
 		self.font = pygame.font.Font("Fonts/superstar.ttf", self.squareSize)
 		self.textFont = pygame.font.Font("Fonts/superstar.ttf", 16)
@@ -85,14 +85,14 @@ class SudokuGUI(object):
 				self.mouseY = position[1]
 
 				if self.mouseX < self.boxSize*self.game.size or self.mouseY < self.boxSize*self.game.size:
-					self.hoverX = self.mouseX // self.squareSize
-					self.hoverY = self.mouseY // self.squareSize
+					self.hoverX = self.mouseX // (self.squareSize+self.padding)
+					self.hoverY = self.mouseY // (self.squareSize+self.padding)
 
 			if event.type == pygame.MOUSEBUTTONDOWN:
 				if event.button == 1:
 					if self.mouseX < self.boxSize*self.game.size or self.mouseY < self.boxSize*self.game.size:
-						self.selectedX = self.mouseX // self.squareSize
-						self.selectedY = self.mouseY // self.squareSize
+						self.selectedX = self.mouseX // (self.squareSize+self.padding)
+						self.selectedY = self.mouseY // (self.squareSize+self.padding)
 
 					if self.mouseX > self.createNewBoardRect.x and self.mouseY > self.createNewBoardRect.y and self.mouseX < self.createNewBoardRect.x + self.createNewBoardRect.width and self.mouseY < self.createNewBoardRect.y + self.createNewBoardRect.height:
 						print("Loading new game...")
@@ -112,23 +112,33 @@ class SudokuGUI(object):
 
 				if event.key == pygame.K_0:
 					self.game.play(self.selectedY, self.selectedX, 0)
+					self.game.play(self.selectedY, self.selectedX, 0)
 				if event.key == pygame.K_1:
+					self.game.play(self.selectedY, self.selectedX, 0)
 					self.game.play(self.selectedY, self.selectedX, 1)
 				if event.key == pygame.K_2:
+					self.game.play(self.selectedY, self.selectedX, 0)
 					self.game.play(self.selectedY, self.selectedX, 2)
 				if event.key == pygame.K_3:
+					self.game.play(self.selectedY, self.selectedX, 0)
 					self.game.play(self.selectedY, self.selectedX, 3)
 				if event.key == pygame.K_4:
+					self.game.play(self.selectedY, self.selectedX, 0)
 					self.game.play(self.selectedY, self.selectedX, 4)
 				if event.key == pygame.K_5:
+					self.game.play(self.selectedY, self.selectedX, 0)
 					self.game.play(self.selectedY, self.selectedX, 5)
 				if event.key == pygame.K_6:
+					self.game.play(self.selectedY, self.selectedX, 0)
 					self.game.play(self.selectedY, self.selectedX, 6)
 				if event.key == pygame.K_7:
+					self.game.play(self.selectedY, self.selectedX, 0)
 					self.game.play(self.selectedY, self.selectedX, 7)
 				if event.key == pygame.K_8:
+					self.game.play(self.selectedY, self.selectedX, 0)
 					self.game.play(self.selectedY, self.selectedX, 8)
 				if event.key == pygame.K_9:
+					self.game.play(self.selectedY, self.selectedX, 0)
 					self.game.play(self.selectedY, self.selectedX, 9)
 
 			if self.game.board == self.game.solution:
@@ -141,7 +151,7 @@ class SudokuGUI(object):
 
 		#self.game.setup_board()
 
-		self.display = pygame.display.set_mode((640,480))
+		self.display = pygame.display.set_mode((self.width,self.height))
 
 		while self.running:
 			self.handle_events()
