@@ -61,8 +61,10 @@ class SudokuGUI(object):
 
 						pygame.draw.rect(self.display, renderColor, pygame.Rect((x*self.boxSize) + (boxX*self.squareSize) + self.padding*(boxX+1), (y*self.boxSize) + (boxY*self.squareSize) + self.padding*(boxY+1), self.squareSize, self.squareSize))
 
-						text = self.font.render(str(self.game.board[x][y][boxX][boxY]), True, (0,0,0))
-						self.display.blit(text, ((x*self.boxSize) + (boxX*self.squareSize) + self.padding*(boxX+3), (y*self.boxSize) + (boxY*self.squareSize)+self.padding*(boxY+3), self.squareSize, self.squareSize))
+
+						if self.game.board[x][y][boxX][boxY] != 0:
+							text = self.font.render(str(self.game.board[x][y][boxX][boxY]), True, (0,0,0))
+							self.display.blit(text, ((x*self.boxSize) + (boxX*self.squareSize) + self.padding*(boxX+3), (y*self.boxSize) + (boxY*self.squareSize)+self.padding*(boxY+3), self.squareSize, self.squareSize))
 
 	def render(self):
 		self.display.fill(self.fillColor)

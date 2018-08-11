@@ -18,8 +18,8 @@ class SudokuGame(object):
 #]
 #and the boxes will be like:
 #[
-#[0,0,0]
-#[0,0,0]
+#[0,0,0],
+#[0,0,0],
 #[0,0,0]
 #]
 	
@@ -54,26 +54,27 @@ class SudokuGame(object):
 		done = False
 
 		while not done:
-			try:
 				for num in range(1,(self.size**2)+1):
-					for boardRow in range(self.size):
-						for boardColumn in range(self.size):
-							tempBoard = copy.deepcopy(self.board)
-							currentPossibleMoves = possibleMoves[:]
-							currentPick = choice(currentPossibleMoves)
-							while check_move(tempBoard,boardRow,boardColumn,currentPick[0],currentPick[1],num) == False:
+					prevWorkingBoard = copy.deepcopy(self.board)
+					try:
+						for boardRow in range(self.size):
+							for boardColumn in range(self.size):
 								tempBoard = copy.deepcopy(self.board)
-								currentPossibleMoves.remove(currentPick)
-								if len(currentPossibleMoves) <= 0:
-									raise StopIteration
+								currentPossibleMoves = possibleMoves[:]
 								currentPick = choice(currentPossibleMoves)
-							tempBoard[boardRow][boardColumn][currentPick[0]][currentPick[1]] = num
+								while check_move(tempBoard,boardRow,boardColumn,currentPick[0],currentPick[1],num) == False:
+									tempBoard = copy.deepcopy(self.board)
+									currentPossibleMoves.remove(currentPick)
+									if len(currentPossibleMoves) <= 0:
+										raise StopIteration
+									currentPick = choice(currentPossibleMoves)
+								tempBoard[boardRow][boardColumn][currentPick[0]][currentPick[1]] = num
 
-							self.board = copy.deepcopy(tempBoard)
-				done = True
-			except StopIteration:
-				self.board = self.create_board()
-				pass
+								self.board = copy.deepcopy(tempBoard)
+						done = True
+					except StopIteration:
+						self.board = prevWorkingBoard
+						pass
 		return copy.deepcopy(self.board)
 
 	def create_final_board(self):
